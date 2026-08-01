@@ -1,0 +1,27 @@
+func checkInclusion(s1 string, s2 string) bool {
+	if len(s1) > len(s2){
+		return false
+	}
+	need := [26]int{}
+	window := [26]int{}
+	for i:=0; i< len(s1); i++{
+		need[s1[i] -'a']++
+		window[s2[i]-'a']++
+	}
+
+	if need == window {
+		return true
+	}
+	// s1 = "abc", s2 = "lecabee"
+	for i:=len(s1); i< len(s2);i++{
+		// need[s2[i] -a]++
+		window[s2[i]-'a']++ // move right
+		// need[s2[i-len(s1)] -a]--
+		window[s2[i-len(s1)]-'a']-- // move left
+
+		if need == window{
+			return true
+		}
+	}
+	return false
+}
